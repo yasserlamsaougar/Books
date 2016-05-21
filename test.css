@@ -133,6 +133,21 @@
     margin-top: 10px;
 }
 
+.badge-custom {
+    position: absolute;
+    top: 43px;
+    right: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    line-height: 20px;
+    border-radius: 50%;
+    display: block;
+    padding-top: 2px;
+    padding-left: 2px;
+}
+
 /** BASKET PAGE **/
 .collection > .collection-item{
     padding-bottom: 20px;
