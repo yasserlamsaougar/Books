@@ -1,3 +1,6 @@
+/**
+    COMMON ELEMENTS
+**/
 .container {
     position: relative;
     margin-top: 10%;
@@ -5,7 +8,7 @@
 .main-controls {
     position: fixed;
     right: 50px;
-    top: 35%;
+    top: 25%;
 }
 
 .main-controls > a {
@@ -15,23 +18,75 @@
     display: block;
 }
 
-.main-controls .item-number > p {
+
+.icon-button > i.material-icons{
+    line-height: 80px;
+    font-size: 2.4rem;
+}
+
+.icon-button > p {
     font-size: 2.2em;
     margin-top: 30%;
 }
 
+@media (max-width: 992px) {
+    .container {
+        margin-top: 20%;
+    }
+
+    .main-controls {
+
+        z-index: 999;
+    }
+
+    .main-controls.vertical{
+        right: 8%;
+        top: 35%;
+    }
+    .main-controls.horizontal{
+        right: 8%;
+        top: 5%;
+    }
+
+    .main-controls > a {
+        width: 50px;
+        height: 50px;
+
+    }
+    .main-controls.vertical > a{
+        display: block;
+        margin-top: 10px;
+    }
+    .main-controls.horizontal > a{
+        margin-left: 10px;
+        display: inline-block;
+    }
+
+
+
+    .icon-button > i.material-icons{
+        line-height: 50px;
+        font-size: 1.8rem;
+    }
+
+    .icon-button > p {
+        font-size: 2em;
+        margin-top: 15%;
+    }
+}
+
+
+/** END OF COMMON ELEMENTS**/
+
+/**
+    HEADER
+**/
 .header {
     height: 115px;
     width: 100%;
     position: fixed;
-    z-index: 999;
+    z-index: 998;
     top: 0;
-}
-
-.intro-text {
-    width: 65%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .header > .logo {
@@ -40,10 +95,18 @@
     height: 100%;
 }
 
-.basket-button i.material-icons, .go-up-button i.material-icons{
-    line-height: 80px;
-    font-size: 2.4rem;
+/** END OF HEADER **/
+
+
+/**
+    LIST OF BOOKS PAGE
+**/
+.intro-text {
+    width: 65%;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 .card {
     width: 45%;
     margin-left: auto;
@@ -59,6 +122,7 @@
 
 .btn-group > a {
     margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 .price {
@@ -68,3 +132,8 @@
 .book-info {
     margin-top: 10px;
 }
+
+/** BASKET PAGE **/
+
+
+/** END OF BASKET PAGE**/
