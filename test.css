@@ -134,6 +134,9 @@
 }
 
 /** BASKET PAGE **/
-
+.collection > .collection-item{
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
 
 /** END OF BASKET PAGE**/
