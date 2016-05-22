@@ -2,15 +2,17 @@
 
 ## Setup 
 
-1. install nodejs 
+1.install git (jspm needs it here is a quick link https://git-scm.com/) 
 
-2. npm install -g jspm (install jspm globally and can be run anywhere)
+2. install nodejs  (here is a quick link https://nodejs.org/en/) 
 
-3. cd path/to/project (go the project directory)
+3. npm install -g jspm (install jspm globally and can be run anywhere)
 
-4. npm install (install all the npm dependencies)
+4. cd path/to/project (go the project directory)
 
-5. jspm install -y (install jspm dependencies and apply default answer when prompted)
+5. npm install (install all the npm dependencies)
+
+6. jspm install -y (install jspm dependencies and apply default answer when prompted)
 
 ## Run
 
