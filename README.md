@@ -2,7 +2,7 @@
 
 ## Setup 
 
-1.install git (jspm needs it here is a quick link https://git-scm.com/) 
+1. install git (jspm needs it here is a quick link https://git-scm.com/) 
 
 2. install nodejs  (here is a quick link https://nodejs.org/en/) 
 
