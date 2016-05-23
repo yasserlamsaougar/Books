@@ -18,7 +18,7 @@
 
 In the package.json, in the scripts property you will find many scripts here is some of them: 
 
-* npm run dev (run the application locally)
+* npm run dev (run the application locally on port 3000)
 
 * npm run build (build your project)
 
