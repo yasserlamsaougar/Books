@@ -1,32 +1,106 @@
 import './setup';
 import Promise from 'bluebird';
 import {Books} from '../../src/books.js';
+import {BasketService} from '../../src/basket-service.js'
 
-class HttpStub {
-  fetch(url) {
-    var response = this.itemStub;
-    this.url = url;
+class BooksServiceStub {
+
+  getBooks() {
+    let books = [{
+      title: 'Test Book',
+      price: 30,
+      isbn: 'testisbn1'
+    }, {
+      title: 'Test Book 2',
+      price: 35,
+      isbn: 'testisbn2'
+    }];
     return new Promise((resolve) => {
-      resolve({ json: () => response });
+       resolve(books);
     });
   }
 
   configure(func) {
+
   }
 }
 
-describe('the Books module', () => {
+describe('the Books module setup', () => {
   it('sets fetch response to books', (done) => {
-    var http = new HttpStub();
-    var sut = new Books(http);
-    var itemStubs = [1];
-    var itemFake = [2];
-
-    http.itemStub = itemStubs;
-    sut.activate().then(() => {
-      expect(sut.books).toBe(itemStubs);
-      expect(sut.books).not.toBe(itemFake);
+    const bookService = new BooksServiceStub();
+    const basketService = new BasketService();
+    const sut = new Books(bookService, basketService);
+    const itemStubs = [{
+      title: 'Test Book',
+      price: 30,
+      isbn: 'testisbn1'
+    }, {
+      title: 'Test Book 2',
+      price: 35,
+      isbn: 'testisbn2'
+    }];
+    const itemFake = [2];
+    spyOn(basketService, 'syncNewCollection');
+    expect(sut.boughtArticlesNumber).toEqual(0);
+    sut.activate().then((books) => {
+      expect(books).toEqual(itemStubs);
+      expect(books).not.toEqual(itemFake);
+      expect(basketService.syncNewCollection).toHaveBeenCalledWith(books);
       done();
     });
   });
+
+});
+
+describe('The books module behavior', () => {
+
+  let books, basketService;
+  let bookCollection = [];
+
+  beforeEach(() => {
+    bookCollection = [
+      {
+        title: 'test 1',
+        price: 30,
+        isbn: 'testisbn1'
+      },
+      {
+        title: 'test 2',
+        price: 35,
+        isbn: 'testisbn2'
+      },
+      {
+        title: 'test 3',
+        price: 40,
+        isbn: 'testisbn3'
+      }
+    ];
+    basketService = new BasketService();
+    var bookService = new BooksServiceStub();
+    books = new Books(bookService, basketService);
+    books.activate();
+  });
+
+  it('should add items to the basket', () => {
+    books.addArticle(bookCollection[0]);
+
+    expect(books.boughtArticlesNumber).toEqual(1);
+
+    books.addArticle(bookCollection[0]);
+    expect(books.boughtArticlesNumber).toEqual(2);
+
+  });
+
+  it('should remove items from the basket', () => {
+    books.addArticle(bookCollection[0]);
+    books.addArticle(bookCollection[0]);
+
+    books.removeArticle(bookCollection[0]);
+    expect(books.boughtArticlesNumber).toEqual(1);
+    books.removeArticle(bookCollection[0]);
+    expect(books.boughtArticlesNumber).toEqual(0);
+    books.removeArticle(bookCollection[0]);
+    expect(books.boughtArticlesNumber).toEqual(0);
+  });
+
 });

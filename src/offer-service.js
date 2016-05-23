@@ -4,7 +4,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import 'isomorphic-fetch';
 
 @inject(HttpClient)
-export class Basket {
+export class OfferService {
   constructor(http) {
     http.configure(config => {
       config
@@ -14,6 +14,9 @@ export class Basket {
     this.http = http;
   }
 
-  activate() {
+  getOffers(isbns) {
+    const joinedIsbns = isbns.join(',');
+    return this.http.fetch(`books/${joinedIsbns}/commercialOffers`)
+      .then(response => response.json());
   }
 }

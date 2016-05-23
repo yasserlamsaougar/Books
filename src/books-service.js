@@ -4,7 +4,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import 'isomorphic-fetch';
 
 @inject(HttpClient)
-export class Basket {
+export class BooksService {
   constructor(http) {
     http.configure(config => {
       config
@@ -14,6 +14,8 @@ export class Basket {
     this.http = http;
   }
 
-  activate() {
+  getBooks() {
+    return this.http.fetch('books')
+      .then(response => response.json());
   }
 }

@@ -1,24 +1,38 @@
 'use strict';
 import {inject} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import 'isomorphic-fetch';
-
-@inject(HttpClient)
+import {BooksService} from './books-service.js';
+import {BasketService} from './basket-service.js'
+@inject(BooksService, BasketService)
 export class Books {
   books = [];
-  constructor(http) {
-    http.configure(config => {
-      config
-        .useStandardConfiguration()
-        .withBaseUrl('http://henri-potier.xebia.fr/');
-    });
+  _boughtArticlesNumber = 0;
 
-    this.http = http;
+  constructor(bookService, basketService) {
+    this.booksService = bookService;
+    this.basketService = basketService;
   }
 
   activate() {
-    return this.http.fetch('books')
-      .then(response => response.json())
-      .then(books => this.books = books);
+    return this.booksService.getBooks()
+      .then(books => {
+        this.basketService.syncNewCollection(books);
+        this._boughtArticlesNumber = this.basketService.articlesLength;
+        this.books = books;
+        return books;
+      });
+  }
+
+  get boughtArticlesNumber() {
+    return this._boughtArticlesNumber;
+  }
+
+  addArticle(article) {
+    this.basketService.addArticle(article);
+    this._boughtArticlesNumber = this.basketService.articlesLength;
+  }
+
+  removeArticle(article) {
+    this.basketService.removeArticle(article);
+    this._boughtArticlesNumber = this.basketService.articlesLength;
   }
 }

@@ -6,6 +6,7 @@ import { bootstrap } from 'aurelia-bootstrapper-webpack';
 import 'bootstrap';
 
 import '../node_modules/materialize-css/dist/css/materialize.min.css';
+import '../node_modules/materialize-css/dist/js/materialize.min.js'
 import '../styles/styles.css';
 
 bootstrap(function(aurelia) {

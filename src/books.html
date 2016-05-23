@@ -1,16 +1,16 @@
 <template>
-  <p class="flow-text center-align books-intro-text">
-    Il était une fois, une collection de cinq livres racontant les histoires d’un formidable héros nommé
-    Henri Potier.<br/> Tous les enfants du monde trouvaient les histoires de cet adolescent fantastiques.<br/>
-    L’éditeur de cette collection, dans un immense élan de générosité,
-    décida de mettre en place des of res commerciales aussi aléatoires que l’issue des sorts
-    de Ron Weasley.
+
+  <p class="flow-text center-align books-intro-text">Once upon a time , a collection of five books telling the stories of a great hero named
+    Henry Potter . <br/> All the world's children were the stories of the fantastic teenager. <br/>
+    The editor of this collection, in a huge outpouring of generosity ,
+    decided to implement random as commercial offers that the outcome spells
+    Ron Weasley.
   </p>
 
   <div class="main-controls vertical">
-    <a class="btn-floating btn waves-effect waves-purple-100 white icon-button basket">
+    <a route-href="route: basket" href="#" class="btn-floating btn waves-effect waves-purple-100 white icon-button basket">
       <i class="large material-icons orange-text">shopping_basket</i>
-      <span class="black badge-custom">1</span>
+      <span class="black badge-custom">${boughtArticlesNumber}</span>
     </a>
   </div>
   <div class="books-items">
@@ -31,15 +31,21 @@
 
           </div>
           <div class="row center-align book-info">
+
             <div class="btn-group">
-              <a class="books-add-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
+              <a click.trigger="addArticle(book)" class="books-add-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
                 class="large material-icons green-text">add</i></a>
               <a class="books-item-number-text waves-effect waves-purple-100 grey lighten-3 btn-floating btn"><span
                 class="green-text">${book.numberBought || 0}</span></a>
 
-              <a class="books-remove-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
+              <a click.trigger="removeArticle(book)"  class="books-remove-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
                 class="large material-icons purple-text">remove</i></a>
             </div>
+          </div>
+
+          <div class="right-align  books-item-isbn">
+
+            <span class="chip">ISBN: ${book.isbn}</span>
           </div>
         </div>
       </div>
