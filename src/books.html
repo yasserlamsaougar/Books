@@ -8,9 +8,12 @@
   </p>
 
   <div class="main-controls vertical">
-    <a route-href="route: basket" href="#" class="btn-floating btn waves-effect waves-purple-100 white icon-button basket">
+    <a  show.bind="boughtArticlesNumber > 0" route-href="route: basket" href="#" class="au-animate btn-floating btn waves-effect waves-purple-100 white icon-button basket">
       <i class="large material-icons orange-text">shopping_basket</i>
       <span class="black badge-custom">${boughtArticlesNumber}</span>
+    </a>
+    <a href="#" class="au-animate btn-floating btn waves-effect waves-purple-100 white icon-button basket">
+      <p class="price-text black-text">${totalPrice}&euro;</p>
     </a>
   </div>
   <div class="books-items">
@@ -38,14 +41,15 @@
               <a class="books-item-number-text waves-effect waves-purple-100 grey lighten-3 btn-floating btn"><span
                 class="green-text">${book.numberBought || 0}</span></a>
 
-              <a click.trigger="removeArticle(book)"  class="books-remove-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
+              <a click.trigger="removeArticle(book)"  class="${!book.numberBought && 'disabled'} books-remove-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
                 class="large material-icons purple-text">remove</i></a>
             </div>
           </div>
 
           <div class="right-align  books-item-isbn">
 
-            <span class="chip">ISBN: ${book.isbn}</span>
+            <span class="hide-on-med-and-down chip">ISBN: ${book.isbn}</span>
+            <span class="hide-on-large-only">ISBN: ${book.isbn}</span>
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 export class PageObjectBooks {
-  href = 'http://localhost:3000/books';
+  href = 'http://localhost:3000#/books';
 
   getHref() {
-    return href;
+    return this.href;
   }
 
   getIntroductionText() {
@@ -18,26 +18,26 @@ export class PageObjectBooks {
   }
 
   getNumberOfBooks() {
-    const list = getListOfBooks();
+    const list = this.getListOfBooks();
     return list.count();
   }
 
   addBookToBasket(index) {
-    const list = getListOfBooks();
+    const list = this.getListOfBooks();
     list.get(index).element(by.css('.books-add-item-button')).click();
   }
 
   removeBookFromBasket(index) {
-    const list = getListOfBooks();
+    const list = this.getListOfBooks();
     list.get(index).element(by.css('.books-remove-item-button')).click();
   }
 
   getNumberBoughtOfBook(index) {
-    var list = getListOfBooks();
+    var list = this.getListOfBooks();
     list.get(index).element(by.css('.books-item-number-text span')).getText();
   }
 
-  static function getListOfBooks() {
+ getListOfBooks() {
     return element.all(by.css('.books-items .card-container'));
   }
 

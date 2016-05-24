@@ -5,12 +5,14 @@ import {inject} from 'aurelia-framework';
 @inject(OfferCalculator)
 export class BasketService {
   _items = [];
-
+  BASKET_SESSION_KEY = 'books_basket';
   constructor(offerCalculator) {
     this.offerCalculator = offerCalculator;
+    this._items = this.getArticlesFromSession() || [];
   }
+
   get articles() {
-    return this._items ;
+    return this._items;
   }
 
   get articlesLength() {
@@ -20,8 +22,8 @@ export class BasketService {
   }
 
   addArticle(item) {
-    if(item) {
-      if(item.numberBought) {
+    if (item) {
+      if (item.numberBought) {
         item.numberBought++;
       }
       else {
@@ -29,21 +31,24 @@ export class BasketService {
         this._items.push(item);
       }
     }
+    this.addArticlesToSession(this._items);
   }
 
   removeArticle(item) {
-    if(item) {
+    if (item) {
       const newNumberBought = item.numberBought - 1;
-      if(newNumberBought <= 0) {
+      if (newNumberBought <= 0) {
         item.numberBought = 0;
         var indexOfItem = this._items.indexOf(item);
-        if(indexOfItem >= 0) {
-          this._items .splice(indexOfItem, 1);
+        if (indexOfItem >= 0) {
+          this._items.splice(indexOfItem, 1);
         }
       }
       else {
         item.numberBought = newNumberBought;
       }
+      this.addArticlesToSession(this._items);
+
     }
   }
 
@@ -55,13 +60,16 @@ export class BasketService {
 
   getBestOffer(offers) {
     const price = this.getTotalPrice();
-    const results = [];
+    let bestOffer = {};
     offers.forEach((offer) => {
-      const calculator = this.offerCalculator.getCalculator(offer.type);
-      results.push(calculator(price, offer));
+      const result = this.offerCalculator.getCalculator(offer.type)(price, offer);
+      if (!bestOffer.value || (bestOffer.value > result)) {
+        bestOffer.offer = offer.type;
+        bestOffer.value = result;
+      }
     });
 
-    return Math.min(...results);
+    return bestOffer;
   }
 
   syncNewCollection(newCollection) {
@@ -69,6 +77,15 @@ export class BasketService {
       const foundArticle = this._items.find(basketArticle => article.isbn === basketArticle.isbn);
       article.numberBought = (foundArticle && foundArticle.numberBought) || 0;
     });
+  }
+
+  addArticlesToSession(articles) {
+    const stringifiedArticles = JSON.stringify(articles);
+    sessionStorage.setItem(this.BASKET_SESSION_KEY, stringifiedArticles);
+  }
+
+  getArticlesFromSession() {
+    return JSON.parse(sessionStorage.getItem(this.BASKET_SESSION_KEY)) || [];
   }
 
 }

@@ -14,9 +14,20 @@ export class OfferService {
     this.http = http;
   }
 
-  getOffers(isbns) {
-    const joinedIsbns = isbns.join(',');
+  getOffers(books) {
+    let joinedIsbns = this.getIsbnsAsString(books, ',');
     return this.http.fetch(`books/${joinedIsbns}/commercialOffers`)
       .then(response => response.json());
+  }
+
+  getIsbnsAsString(books, separator) {
+    let result = [];
+    books.forEach((book) => {
+      const numberBought = book.numberBought || 0;
+      for(let i = 0; i < numberBought; ++i) {
+        result.push(book.isbn);
+      }
+    });
+    return result.join(separator);
   }
 }

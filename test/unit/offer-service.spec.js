@@ -22,7 +22,16 @@ describe('the Offer service module', () => {
     var sut = new OfferService(http);
     var itemStubs = [1];
     var itemFake = [2];
-    const isbns = ['test1', 'test2'];
+    const isbns = [
+      {
+        isbn: 'test1',
+        numberBought: 1
+      },
+      {
+        isbn: 'test2',
+        numberBought: 1
+      }
+    ];
 
     http.itemStub = itemStubs;
     sut.getOffers(isbns).then((offers) => {
@@ -37,7 +46,7 @@ describe('the Offer service module', () => {
     });
     sut.getOffers(isbns);
 
-    expect(http.fetch).toHaveBeenCalledWith(`books/${isbns[0]},${isbns[1]}/commercialOffers`);
+    expect(http.fetch).toHaveBeenCalledWith(`books/test1,test2/commercialOffers`);
 
   });
 });

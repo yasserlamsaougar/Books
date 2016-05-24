@@ -26,6 +26,10 @@ export class Books {
     return this._boughtArticlesNumber;
   }
 
+  get totalPrice() {
+    return this.basketService.getTotalPrice();
+  }
+
   addArticle(article) {
     this.basketService.addArticle(article);
     this._boughtArticlesNumber = this.basketService.articlesLength;

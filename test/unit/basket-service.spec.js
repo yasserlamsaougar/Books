@@ -129,7 +129,21 @@ describe('The basket service', () => {
           value: 12
         }
       ];
-    expect(basketService.getBestOffer(offers)).toEqual(130);
+    expect(basketService.getBestOffer(offers)).toEqual({
+      value: 130,
+      type: 'minus'
+    });
+  });
+
+  it('should be able to remove all items', () => {
+
+    basketService.addArticle(bookCollection[2]);
+    basketService.addArticle(bookCollection[2]);
+    basketService.addArticle(bookCollection[1]);
+    basketService.addArticle(bookCollection[0]);
+
+    expect(basketService.articlesLength)
+
   });
 
 });

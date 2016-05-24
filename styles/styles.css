@@ -7,14 +7,10 @@
 
 .splash .message {
   background: url('/images/splash.png') no-repeat;
-  /*font-size: 72px;
-  line-height: 72px;*/
   width: 143px;
   height: 74px;
   margin-left: auto;
   margin-right: auto;
-  /*text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
-  text-transform: uppercase;*/
   animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-name: rotate;
@@ -29,20 +25,6 @@
   display: inline-block;
   font-size: 72px;
   margin-top: 50px;
-}
-
-/**
-  Splash Animation
-**/
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg) scale(1);
-  }
-
-  to {
-    transform: rotate(360deg) scale(1.5);
-  }
 }
 
 /**
@@ -74,6 +56,10 @@
 .icon-button > p {
   font-size: 2.2em;
   margin-top: 30%;
+}
+
+.icon-button.au-enter-active {
+  animation: bounceIn 1s;
 }
 
 @media (max-width: 992px) {
@@ -181,15 +167,20 @@
   display: inline-block;
 }
 
+.icon-button .price-text {
+  font-size: 1.7rem;
+  vertical-align: middle;
+}
+
 .book-info {
   margin-top: 10px;
 }
 
 .badge-custom {
   position: absolute;
-  top: 43px;
-  right: 10px;
-  font-size: 12px;
+  top: 60%;
+  right: 14%;
+  font-size: 0.8rem;
   font-weight: bold;
   width: 24px;
   height: 24px;
@@ -197,13 +188,62 @@
   border-radius: 50%;
   display: block;
   padding-top: 2px;
-  padding-left: 2px;
+  padding-left: 1px;
+}
+
+@media(max-width: 992px) {
+  .badge-custom {
+    position: absolute;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    line-height: 16px;
+    display: block;
+    padding-top: 1px;
+    padding-left: 0;
+  }
+
+  .books-item-isbn {
+    font-size: 0.65rem;
+    font-weight: 500;
+    width: 100%;
+    text-align: left;
+  }
 }
 
 /** BASKET PAGE **/
 .collection > .collection-item{
   padding-bottom: 20px;
   padding-top: 20px;
+  border-radius: 10px;
+}
+
+.basket-no-article-text {
+  padding: 20px;
+  margin-top: 30%;
 }
 
 /** END OF BASKET PAGE**/
+
+
+/** ANIMATIONS **/
+
+@keyframes bounceIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+
+  to {
+    transform: rotate(360deg) scale(1.5);
+  }
+}
