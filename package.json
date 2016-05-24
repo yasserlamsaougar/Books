@@ -81,7 +81,7 @@
   "jspm": {
     "dependencies": {
       "aurelia-animator-velocity": "npm:aurelia-animator-velocity@^1.0.0-beta.1.2.1",
-      "materialize-css": "npm:materialize-css@^0.97.6"
+      "materialize": "npm:materialize-css@^0.97.6"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
