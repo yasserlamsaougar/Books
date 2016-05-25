@@ -44,6 +44,10 @@ describe('the Basket module setup', () => {
     price: 35,
     isbn: 'testisbn2'
   }];
+  beforeEach(() => {
+    spyOn(sessionStorage, 'setItem').and.returnValue(true);
+    spyOn(sessionStorage, 'getItem').and.returnValue([]);
+  });
   it('sets fetch response to books', (done) => {
 
     const offerService = new OfferServiceStub();
@@ -76,7 +80,21 @@ describe('the Basket module setup', () => {
     });
   });
 
-  it('should call the offer service with the list of books in the basket', () => {
+  it('should initialize the basket items and price based on the basket service', (done) => {
+    const offerService = new OfferServiceStub();
+    const basketService = new BasketService(new OfferCalculator());
+    basketService.addArticle(booksCollection[0]);
+    basketService.addArticle(booksCollection[1]);
+    const sut = new Basket(offerService, basketService);
+    sut.activate().then(() => {
+      expect(sut.articles).toEqual(basketService.articles);
+      expect(sut.currentPriceWithOffers).toEqual(50);
+      expect(sut.currentPrice).toEqual(65);
+      done();
+    });
+  });
+
+  it('should call the offer service with the list of books in the basket', (done) => {
     const offerService = new OfferServiceStub();
     spyOn(offerService, 'getOffers').and.callThrough();
     let basketService = new BasketService(new OfferCalculator());
@@ -85,22 +103,10 @@ describe('the Basket module setup', () => {
     const sut = new Basket(offerService, basketService);
     sut.activate().then(() => {
       expect(sut.articles).toEqual(basketService.articles);
+      done();
     });
 
     expect(offerService.getOffers).toHaveBeenCalledWith(basketService.articles);
-  });
-
-  it('should initialize the basket items and price based on the basket service', () => {
-    const offerService = new OfferServiceStub();
-    let basketService = new BasketService(new OfferCalculator());
-    basketService.addArticle(booksCollection[0]);
-    basketService.addArticle(booksCollection[1]);
-    const sut = new Basket(offerService, basketService);
-    sut.activate().then(() => {
-      expect(sut.articles).toEqual(basketService.articles);
-      expect(sut.currentPriceWithOffers).toEqual(50);
-      expect(sut.currentPrice).toEqual(65);
-    });
   });
 
 });
@@ -128,6 +134,8 @@ describe('The basket module behavior', () => {
         isbn: 'testisbn3'
       }
     ];
+    spyOn(sessionStorage, 'setItem').and.returnValue(true);
+    spyOn(sessionStorage, 'getItem').and.returnValue([]);
     baseNumberOfItems = bookCollection.length;
     basketService = new BasketService(new OfferCalculator());
     bookCollection.forEach((element) => {
@@ -135,21 +143,36 @@ describe('The basket module behavior', () => {
     });
     const offerService = new OfferServiceStub();
     basket = new Basket(offerService, basketService);
-    basket.activate();
   });
 
-  it('should be able to add more items to the basket',  () => {
-    basket.addArticle(bookCollection[0]);
-    expect(bookCollection[0].numberBought).toEqual(2);
-    expect(basket.totalArticles).toEqual(baseNumberOfItems + 1);
+  it('should be able to add more items to the basket',  (done) => {
+    basket.activate().then(() => {
+      basket.addArticle(bookCollection[0]);
+      expect(bookCollection[0].numberBought).toEqual(2);
+      expect(basket.totalArticles).toEqual(baseNumberOfItems + 1);
+      done();
+    });
   });
 
 
-  it('should be able to remove items from the basket', () => {
-    basket.removeArticle(bookCollection[1]);
-    expect(bookCollection[1].numberBought).toEqual(0);
-    expect(basket.totalArticles).toEqual(baseNumberOfItems - 1);
+  it('should be able to remove items from the basket', (done) => {
+    basket.activate().then(() => {
+      basket.removeArticle(bookCollection[1]);
+      expect(bookCollection[1].numberBought).toEqual(0);
+      expect(basket.totalArticles).toEqual(baseNumberOfItems - 1);
+      done();
+    });
   });
 
+  it('should be able to remove all items at once', (done) => {
+    basket.activate().then(() => {
+      basket.addArticle(bookCollection[0]);
+      basket.addArticle(bookCollection[1]);
+      basket.addArticle(bookCollection[2]);
+      basket.clearAllArticles();
+      expect(basket.totalArticles).toEqual(0);
+      done();
+    });
+  });
 
 });

@@ -45,6 +45,7 @@
     "bluebird": "^3.3.4",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.5.0",
+    "hammerjs": "^2.0.8",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^2.2.3"
   },

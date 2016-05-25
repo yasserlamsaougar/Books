@@ -75,6 +75,8 @@ describe('The books module behavior', () => {
         isbn: 'testisbn3'
       }
     ];
+    spyOn(sessionStorage, 'setItem').and.returnValue(true);
+    spyOn(sessionStorage, 'getItem').and.returnValue([]);
     basketService = new BasketService();
     var bookService = new BooksServiceStub();
     books = new Books(bookService, basketService);
@@ -101,6 +103,21 @@ describe('The books module behavior', () => {
     expect(books.boughtArticlesNumber).toEqual(0);
     books.removeArticle(bookCollection[0]);
     expect(books.boughtArticlesNumber).toEqual(0);
+  });
+
+
+
+  it('should clear all items in the basket', () => {
+    books.addArticle(bookCollection[0]);
+    books.addArticle(bookCollection[1]);
+
+    books.clearAllArticles();
+    expect(books.boughtArticlesNumber).toEqual(0);
+
+    [bookCollection[0], bookCollection[1]].forEach((book) => {
+      expect(book.numberBought).toEqual(0);
+    });
+
   });
 
 });

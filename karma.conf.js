@@ -21,7 +21,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'build/bundle.js',
-      'test/unit/**/*.spec.js'
+      'test/unit/**/books.spec.js'
     ],
 
 

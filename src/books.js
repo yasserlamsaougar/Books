@@ -15,9 +15,8 @@ export class Books {
   activate() {
     return this.booksService.getBooks()
       .then(books => {
-        this.basketService.syncNewCollection(books);
+        this.books = this.basketService.syncNewCollection(books);
         this._boughtArticlesNumber = this.basketService.articlesLength;
-        this.books = books;
         return books;
       });
   }
@@ -37,6 +36,11 @@ export class Books {
 
   removeArticle(article) {
     this.basketService.removeArticle(article);
+    this._boughtArticlesNumber = this.basketService.articlesLength;
+  }
+
+  clearAllArticles() {
+    this.basketService.clearAllArticles();
     this._boughtArticlesNumber = this.basketService.articlesLength;
   }
 }

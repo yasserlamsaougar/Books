@@ -8,7 +8,7 @@ export class BasketService {
   BASKET_SESSION_KEY = 'books_basket';
   constructor(offerCalculator) {
     this.offerCalculator = offerCalculator;
-    this._items = this.getArticlesFromSession() || [];
+    this._items = this.getArticlesFromSession() || this._items;
   }
 
   get articles() {
@@ -31,7 +31,7 @@ export class BasketService {
         this._items.push(item);
       }
     }
-    this.addArticlesToSession(this._items);
+    this.setArticlesInSession(this._items);
   }
 
   removeArticle(item) {
@@ -47,7 +47,7 @@ export class BasketService {
       else {
         item.numberBought = newNumberBought;
       }
-      this.addArticlesToSession(this._items);
+      this.setArticlesInSession(this._items);
 
     }
   }
@@ -73,19 +73,35 @@ export class BasketService {
   }
 
   syncNewCollection(newCollection) {
-    newCollection.forEach((article) => {
+    return newCollection.map((article) => {
       const foundArticle = this._items.find(basketArticle => article.isbn === basketArticle.isbn);
-      article.numberBought = (foundArticle && foundArticle.numberBought) || 0;
+      let newArticle = foundArticle || article;
+      newArticle.numberBought = newArticle.numberBought || 0;
+      return newArticle;
     });
   }
 
-  addArticlesToSession(articles) {
+  clearAllArticles() {
+    this._items.forEach((article) => {
+      article.numberBought = 0;
+    });
+    this._items.splice(0, this._items.length);
+    this.setArticlesInSession(this._items);
+  }
+
+  setArticlesInSession(articles) {
     const stringifiedArticles = JSON.stringify(articles);
     sessionStorage.setItem(this.BASKET_SESSION_KEY, stringifiedArticles);
   }
 
   getArticlesFromSession() {
-    return JSON.parse(sessionStorage.getItem(this.BASKET_SESSION_KEY)) || [];
+    const basketSessionValue = sessionStorage.getItem(this.BASKET_SESSION_KEY);
+    try {
+      return JSON.parse(basketSessionValue);
+    }
+    catch(exception) {
+      console.warn('warning session value wrong');
+    }
   }
 
 }

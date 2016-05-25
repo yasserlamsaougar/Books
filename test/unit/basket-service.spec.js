@@ -6,6 +6,8 @@ describe('The basket service', () => {
   let basketService;
   let bookCollection = [];
   beforeEach(() => {
+    spyOn(sessionStorage, 'setItem').and.returnValue(true);
+    spyOn(sessionStorage, 'getItem').and.returnValue([]);
     const offerCalculator = new OfferCalculator();
     basketService = new BasketService(offerCalculator);
     bookCollection = [
@@ -101,7 +103,7 @@ describe('The basket service', () => {
         isbn: 'unavailable'
       }
     ];
-    basketService.syncNewCollection(newCollectionOfBooks);
+    newCollectionOfBooks = basketService.syncNewCollection(newCollectionOfBooks);
 
     expect(newCollectionOfBooks[0].numberBought).toEqual(1);
     expect(newCollectionOfBooks[1].numberBought).toEqual(0);
@@ -131,8 +133,20 @@ describe('The basket service', () => {
       ];
     expect(basketService.getBestOffer(offers)).toEqual({
       value: 130,
-      type: 'minus'
+      offer: 'minus'
     });
+  });
+
+  it('should add item to session when add value ', () => {
+    basketService.addArticle(bookCollection[0]);
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('books_basket', JSON.stringify([bookCollection[0]]));
+
+  });
+
+  it('should remove item from sessionStorage when remove value', function() {
+    basketService.addArticle(bookCollection[0]);
+    basketService.removeArticle(bookCollection[0]);
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('books_basket', JSON.stringify([]));
   });
 
   it('should be able to remove all items', () => {
@@ -142,7 +156,15 @@ describe('The basket service', () => {
     basketService.addArticle(bookCollection[1]);
     basketService.addArticle(bookCollection[0]);
 
-    expect(basketService.articlesLength)
+    basketService.clearAllArticles();
+
+    expect(basketService.articlesLength).toEqual(0);
+    expect(sessionStorage.setItem).toHaveBeenCalledTimes(5);
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('books_basket', JSON.stringify([]));
+
+    basketService.articles.forEach((article) => {
+      expect(article.numberBought).toEqual(0);
+    })
 
   });
 

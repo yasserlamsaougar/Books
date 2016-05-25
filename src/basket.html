@@ -3,7 +3,7 @@
     <a route-href="route: books" class="btn-floating btn waves-effect waves-purple-100 white icon-button">
       <i class="large material-icons orange-text">home</i>
     </a>
-    <a if.bind="articles.length > 0" class="btn-floating btn waves-effect waves-purple-100 white icon-button">
+    <a click.trigger="clearAllArticles()" if.bind="articles.length > 0" class="btn-floating btn waves-effect waves-purple-100 white icon-button">
       <i class="material-icons purple-text">clear_all</i>
     </a>
   </div>
@@ -12,8 +12,8 @@
     <li class="collection-header">
       <h3>Cart
         <span class="right price-with-offers">
-          ${currentPrice}&euro; - ${currentPriceWithOffers}&euro;
-          = ${currentPrice - currentPriceWithOffers}&euro;</span>
+          ${currentPrice}&euro; - ${difference}&euro;
+          = ${currentPriceWithOffers}&euro;</span>
       </h3>
     </li>
     <li class="collection-item avatar" repeat.for="article of articles">

@@ -1,6 +1,7 @@
 <template>
 
-  <p class="flow-text center-align books-intro-text">Once upon a time , a collection of five books telling the stories of a great hero named
+  <p class="flow-text center-align books-intro-text">Once upon a time , a collection of five books telling the stories
+    of a great hero named
     Henry Potter . <br/> All the world's children were the stories of the fantastic teenager. <br/>
     The editor of this collection, in a huge outpouring of generosity ,
     decided to implement random as commercial offers that the outcome spells
@@ -8,12 +9,17 @@
   </p>
 
   <div class="main-controls vertical">
-    <a  show.bind="boughtArticlesNumber > 0" route-href="route: basket" href="#" class="au-animate btn-floating btn waves-effect waves-purple-100 white icon-button basket">
+    <a if.bind="boughtArticlesNumber > 0" route-href="route: basket" href="#"
+       class="au-animate btn-floating btn waves-effect waves-purple-100 white icon-button basket">
       <i class="large material-icons orange-text">shopping_basket</i>
       <span class="black badge-custom">${boughtArticlesNumber}</span>
     </a>
     <a href="#" class="au-animate btn-floating btn waves-effect waves-purple-100 white icon-button basket">
       <p class="price-text black-text">${totalPrice}&euro;</p>
+    </a>
+    <a click.trigger="clearAllArticles()" if.bind="boughtArticlesNumber > 0"
+       class="btn-floating btn waves-effect waves-purple-100 white icon-button">
+      <i class="material-icons purple-text">clear_all</i>
     </a>
   </div>
   <div class="books-items">
@@ -36,12 +42,14 @@
           <div class="row center-align book-info">
 
             <div class="btn-group">
-              <a click.trigger="addArticle(book)" class="books-add-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
+              <a click.trigger="addArticle(book)"
+                 class="books-add-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
                 class="large material-icons green-text">add</i></a>
               <a class="books-item-number-text waves-effect waves-purple-100 grey lighten-3 btn-floating btn"><span
                 class="green-text">${book.numberBought || 0}</span></a>
 
-              <a click.trigger="removeArticle(book)"  class="${!book.numberBought && 'disabled'} books-remove-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
+              <a click.trigger="removeArticle(book)"
+                 class="${!book.numberBought && 'disabled'} books-remove-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
                 class="large material-icons purple-text">remove</i></a>
             </div>
           </div>

@@ -10,6 +10,8 @@ export class Basket {
   _offers = [];
   _currentPrice = 0;
   _currentPriceWithOffers = 0;
+  _difference = 0;
+
   constructor(offerService, basketService) {
     this.basketService = basketService;
     this.offerService = offerService;
@@ -36,11 +38,17 @@ export class Basket {
     return this._currentPrice;
   }
 
+  get difference() {
+    return this._difference;
+  }
+
   calculatePrice(offers) {
     let bestOffer = this.basketService.getBestOffer(offers.offers);
     this._currentPriceWithOffers = bestOffer.value;
     this._bestOffer = bestOffer.offer;
     this._currentPrice = this.basketService.getTotalPrice();
+    this._difference = this._currentPrice - this._currentPriceWithOffers;
+
   }
 
   addArticle(item) {
@@ -51,6 +59,10 @@ export class Basket {
   removeArticle(item) {
     this.basketService.removeArticle(item);
     this.calculatePrice(this._offers);
+  }
+
+  clearAllArticles() {
+    this.basketService.clearAllArticles();
   }
 
   get totalArticles() {
