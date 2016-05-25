@@ -1,20 +1,23 @@
 <template>
   <div class="main-controls horizontal">
-    <a route-href="route: books" class="btn-floating btn waves-effect waves-purple-100 white icon-button">
+    <a route-href="route: books" class="btn-floating btn waves-effect waves-purple white icon-button">
+      <div if.bind="router.isNavigating" class="icon-wrapper">
+        <div class="icon purple"></div>
+      </div>
       <i class="large material-icons orange-text">home</i>
     </a>
     <a click.trigger="clearAllArticles()" if.bind="articles.length > 0" class="btn-floating btn waves-effect waves-purple-100 white icon-button">
       <i class="material-icons purple-text">clear_all</i>
     </a>
   </div>
-  <h2 class="center-align purple-text text-lighten-2 grey lighten-5 z-depth-1 basket-no-article-text" if.bind="articles.length <= 0">You don't have any book in your basket</h2>
+  <h3 class="center-align purple-text text-lighten-2 grey lighten-5 z-depth-1 basket-no-article-text" if.bind="articles.length <= 0">You don't have any book in your basket</h3>
   <ul if.bind="articles.length > 0" class="collection with-header">
     <li class="collection-header">
-      <h3>Cart
-        <span class="right price-with-offers">
-          ${currentPrice}&euro; - ${difference}&euro;
-          = ${currentPriceWithOffers}&euro;</span>
-      </h3>
+      <h4>Cart
+        <div class="price-with-offers">
+          <span class="best-offer-text">Price after applying the ${difference}&euro; Offer is </span>
+          <span class="hoverable best-offer-price">${currentPriceWithOffers}&euro;</span></div>
+      </h4>
     </li>
     <li class="collection-item avatar" repeat.for="article of articles">
       <img src.bind="article.cover" alt="" class="circle">
@@ -23,12 +26,12 @@
       <p class="item-price">${article.price * article.numberBought}</p>
 
       <p class="item-number">${article.numberBought} articles</p>
-      <a href="#" class="secondary-content ">
-        <div click.trigger="addArticle(article)"><i class="material-icons orange-text">add</i></div>
+      <div href="#!" class="secondary-content ">
+        <a href="#!" click.trigger="addArticle(article)" class="add-article-btn"><i class="material-icons orange-text">add</i></a>
         <p class="center-align grey-text">${article.numberBought}</p>
 
-        <div click.trigger="removeArticle(article)"><i class="material-icons purple-text">remove</i></div>
-      </a>
+        <a href="#!"  click.trigger="removeArticle(article)"><i class="material-icons purple-text">remove</i></a>
+      </div>
     </li>
   </ul>
 </template>

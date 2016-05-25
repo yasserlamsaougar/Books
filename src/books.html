@@ -8,17 +8,20 @@
     Ron Weasley.
   </p>
 
-  <div class="main-controls vertical">
+  <div class="main-controls horizontal-as-menu">
     <a if.bind="boughtArticlesNumber > 0" route-href="route: basket" href="#"
-       class="au-animate btn-floating btn waves-effect waves-purple-100 white icon-button basket">
+       class="au-animate btn-floating btn waves-effect waves-purple white icon-button basket">
+      <div if.bind="router.isNavigating" class="icon-wrapper">
+        <div class="icon purple"></div>
+      </div>
       <i class="large material-icons orange-text">shopping_basket</i>
-      <span class="black badge-custom">${boughtArticlesNumber}</span>
+      <span if.bind="!router.isNavigating" class="black badge-custom">${boughtArticlesNumber}</span>
     </a>
-    <a href="#" class="au-animate btn-floating btn waves-effect waves-purple-100 white icon-button basket">
+    <a href="#" class="au-animate btn-floating btn waves-effect white icon-button price">
       <p class="price-text black-text">${totalPrice}&euro;</p>
     </a>
     <a click.trigger="clearAllArticles()" if.bind="boughtArticlesNumber > 0"
-       class="btn-floating btn waves-effect waves-purple-100 white icon-button">
+       class="btn-floating btn waves-effect waves-orange white icon-button">
       <i class="material-icons purple-text">clear_all</i>
     </a>
   </div>
@@ -31,7 +34,6 @@
         <div class="card-content">
           <div class="row"><span
             class="section col s9 flow-text grey-text text-darken-4">${book.title}</span>
-
                         <span class="price right red-text text-accent-4 flow-text">
                             ${book.price}&euro;
                         </span>

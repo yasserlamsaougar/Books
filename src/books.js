@@ -1,15 +1,17 @@
 'use strict';
 import {inject} from 'aurelia-framework';
+import {Router} from 'aurelia-router';
 import {BooksService} from './books-service.js';
 import {BasketService} from './basket-service.js'
-@inject(BooksService, BasketService)
+@inject(BooksService, BasketService, Router)
 export class Books {
   books = [];
   _boughtArticlesNumber = 0;
 
-  constructor(bookService, basketService) {
+  constructor(bookService, basketService, router) {
     this.booksService = bookService;
     this.basketService = basketService;
+    this.router = router;
   }
 
   activate() {
