@@ -103,10 +103,10 @@ describe('the Basket module setup', () => {
     const sut = new Basket(offerService, basketService);
     sut.activate().then(() => {
       expect(sut.articles).toEqual(basketService.articles);
+      expect(offerService.getOffers).toHaveBeenCalledWith(basketService.articles);
       done();
     });
 
-    expect(offerService.getOffers).toHaveBeenCalledWith(basketService.articles);
   });
 
 });

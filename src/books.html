@@ -1,11 +1,9 @@
 <template>
 
-  <p class="flow-text center-align books-intro-text">Once upon a time , a collection of five books telling the stories
-    of a great hero named
-    Henry Potter . <br/> All the world's children were the stories of the fantastic teenager. <br/>
-    The editor of this collection, in a huge outpouring of generosity ,
-    decided to implement random as commercial offers that the outcome spells
-    Ron Weasley.
+  <p class="flow-text center-align books-intro-text" >
+    ${'books.labels.intro_text.0' | t}<br />
+    ${'books.labels.intro_text.1' | t}<br />
+    ${'books.labels.intro_text.2' | t}
   </p>
 
   <div class="main-controls horizontal-as-menu">
@@ -14,7 +12,7 @@
       <div if.bind="router.isNavigating" class="icon-wrapper">
         <div class="icon purple"></div>
       </div>
-      <i class="large material-icons orange-text">shopping_basket</i>
+      <i class="large material-icons orange-text" t="books.icons.shopping_basket"></i>
       <span if.bind="!router.isNavigating" class="black badge-custom">${boughtArticlesNumber}</span>
     </a>
     <a href="#" class="au-animate btn-floating btn waves-effect white icon-button price">
@@ -22,7 +20,7 @@
     </a>
     <a click.trigger="clearAllArticles()" if.bind="boughtArticlesNumber > 0"
        class="btn-floating btn waves-effect waves-orange white icon-button">
-      <i class="material-icons purple-text">clear_all</i>
+      <i class="material-icons purple-text" t="books.icons.clear_all"></i>
     </a>
   </div>
   <div class="books-items">
@@ -46,19 +44,18 @@
             <div class="btn-group">
               <a click.trigger="addArticle(book)"
                  class="books-add-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
-                class="large material-icons green-text">add</i></a>
+                class="large material-icons green-text" t="books.icons.add_article"></i></a>
               <a class="books-item-number-text waves-effect waves-purple-100 grey lighten-3 btn-floating btn"><span
                 class="green-text">${book.numberBought || 0}</span></a>
 
               <a click.trigger="removeArticle(book)"
                  class="${!book.numberBought && 'disabled'} books-remove-item-button waves-effect waves-purple-100 white btn-floating btn btn-large"><i
-                class="large material-icons purple-text">remove</i></a>
+                class="large material-icons purple-text" t="books.icons.remove_article"></i></a>
             </div>
           </div>
 
           <div class="right-align  books-item-isbn">
-
-            <span class="hide-on-med-and-down chip">ISBN: ${book.isbn}</span>
+            <span class="hide-on-med-and-down chip">${'books.labels.ISBN' & t:{'sep': ':', 'isbn': book.isbn}}</span>
             <span class="hide-on-large-only">ISBN: ${book.isbn}</span>
           </div>
         </div>

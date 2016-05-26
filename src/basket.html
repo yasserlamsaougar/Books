@@ -4,18 +4,18 @@
       <div if.bind="router.isNavigating" class="icon-wrapper">
         <div class="icon purple"></div>
       </div>
-      <i class="large material-icons orange-text">home</i>
+      <i class="large material-icons orange-text" t="basket.icons.home"></i>
     </a>
     <a click.trigger="clearAllArticles()" if.bind="articles.length > 0" class="btn-floating btn waves-effect waves-purple-100 white icon-button">
-      <i class="material-icons purple-text">clear_all</i>
+      <i class="material-icons purple-text" t="basket.icons.clear_all"></i>
     </a>
   </div>
-  <h3 class="center-align purple-text text-lighten-2 grey lighten-5 z-depth-1 basket-no-article-text" if.bind="articles.length <= 0">You don't have any book in your basket</h3>
+  <h3 class="center-align purple-text text-lighten-2 grey lighten-5 z-depth-1 basket-no-article-text" if.bind="articles.length <= 0" t="basket.labels.empty_basket"></h3>
   <ul if.bind="articles.length > 0" class="collection with-header">
     <li class="collection-header">
       <h4>Cart
         <div class="price-with-offers">
-          <span class="best-offer-text">Price after applying the ${difference}&euro; Offer is </span>
+          <span class="best-offer-text" t="[html]basket.labels.best_offer_text" t-params.bind="{difference: difference}"></span>
           <span class="hoverable best-offer-price">${currentPriceWithOffers}&euro;</span></div>
       </h4>
     </li>
@@ -25,12 +25,12 @@
 
       <p class="item-price">${article.price * article.numberBought}</p>
 
-      <p class="item-number">${article.numberBought} articles</p>
+      <p class="item-number">${'basket.labels.item_bought' & t:{count: article.numberBought}}</p>
       <div href="#!" class="secondary-content ">
-        <a href="#!" click.trigger="addArticle(article)" class="add-article-btn"><i class="material-icons orange-text">add</i></a>
+        <a href="#!" click.trigger="addArticle(article)" class="add-article-btn"><i class="material-icons orange-text" t="basket.icons.add_article"></i></a>
         <p class="center-align grey-text">${article.numberBought}</p>
 
-        <a href="#!"  click.trigger="removeArticle(article)"><i class="material-icons purple-text">remove</i></a>
+        <a href="#!"  class="remove-article-btn" click.trigger="removeArticle(article)"><i class="material-icons purple-text" t="basket.icons.remove_article"></i></a>
       </div>
     </li>
   </ul>

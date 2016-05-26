@@ -1,0 +1,39 @@
+{
+  "common": {
+    "icons": {
+      "clear_all": "clear_all",
+      "add_article": "add",
+      "remove_article": "remove"
+    }
+  },
+  "basket": {
+    "icons": {
+      "home": "home",
+      "clear_all": "$t(common.icons.clear_all)",
+      "add_article": "$t(common.icons.add_article)",
+      "remove_article": "$t(common.icons.remove_article)"
+    },
+    "labels": {
+      "best_offer_text": "Prix ??après l'application de l'offre de {{difference}}&euro; est",
+      "item_bought": "{{count}} article",
+      "item_bought_plural": "{{count}} articles",
+      "empty_basket": "You don't have any book in your basket"
+    }
+  },
+  "books": {
+    "icons": {
+      "shopping_basket": "shopping_basket",
+      "clear_all": "$t(clear_all)",
+      "add_article": "$t(common.icons.add_article)",
+      "remove_article": "$t(common.icons.remove_article)"
+    },
+    "labels": {
+      "intro_text": [
+        "Il était une fois, une collection de cinq livres racontant les histoires d’un formidable héros nommé Henri Potier",
+        "Tous les enfants du monde trouvaient les histoires de cet adolescent fantastiques",
+        "L’éditeur de cette collection, dans un immense élan de générosité décida de mettre en place des of res commerciales aussi aléatoires que l’issue des sortsde Ron Weasley."
+      ],
+      "ISBN": "ISBN{{sep}} {{isbn}}"
+    }
+  }
+}

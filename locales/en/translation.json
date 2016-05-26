@@ -1,0 +1,39 @@
+{
+  "common": {
+    "icons": {
+      "clear_all": "clear_all",
+      "add_article": "add",
+      "remove_article": "remove"
+    }
+  },
+  "basket": {
+    "icons": {
+      "home": "home",
+      "clear_all": "$t(common.icons.clear_all)",
+      "add_article": "$t(common.icons.add_article)",
+      "remove_article": "$t(common.icons.remove_article)"
+    },
+    "labels": {
+      "best_offer_text": "Price after applying the {{difference}}&euro; Offer is",
+      "item_bought": "{{count}} article",
+      "item_bought_plural": "{{count}} articles",
+      "empty_basket": "You don't have any book in your basket"
+    }
+  },
+  "books": {
+    "icons": {
+      "shopping_basket": "shopping_basket",
+      "clear_all": "$t(clear_all)",
+      "add_article": "$t(common.icons.add_article)",
+      "remove_article": "$t(common.icons.remove_article)"
+    },
+    "labels": {
+      "intro_text": [
+        "Once upon a time , a collection of five books telling the stories of a great hero named Henry Potter.",
+        "All the world's children loved the stories of this young teenager.",
+        "The editor of this collection, in a huge act of generosity, decided to put in place a system that applies commercial offers as random as the spells of Ron Weasley."
+      ],
+      "ISBN": "ISBN{{sep}} {{isbn}}"
+    }
+  }
+}
