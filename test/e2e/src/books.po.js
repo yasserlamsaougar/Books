@@ -1,5 +1,9 @@
 export class PageObjectBooks {
-  href = 'http://localhost:3000#/books';
+
+  constructor() {
+    this.href = 'http://localhost:3000#/books';
+
+  }
 
   getHref() {
     return this.href;
@@ -24,23 +28,33 @@ export class PageObjectBooks {
 
   addBookToBasket(index) {
     const list = this.getListOfBooks();
-    list.get(index).element(by.css('.books-add-item-button')).click();
+    return list.get(index).element(by.css('.books-add-item-button')).click();
   }
 
   removeBookFromBasket(index) {
     const list = this.getListOfBooks();
-    list.get(index).element(by.css('.books-remove-item-button')).click();
+    return list.get(index).element(by.css('.books-remove-item-button')).click();
+  }
+
+  isBadgeDisplayed() {
+    return browser.isElementPresent(by.css('.basket .badge-custom'));
+  }
+  isClearAllDisplayed() {
+    return browser.isElementPresent(by.css('.clear-all'));
   }
 
   getNumberBoughtOfBook(index) {
     var list = this.getListOfBooks();
-    list.get(index).element(by.css('.books-item-number-text span')).getText();
+    return list.get(index).element(by.css('.books-item-number-text span')).getText();
   }
 
- getListOfBooks() {
+  getListOfBooks() {
     return element.all(by.css('.books-items .card-container'));
   }
 
+  clearBasket() {
+    return element(by.css('.clear-all')).click();
+  }
 
 
 }

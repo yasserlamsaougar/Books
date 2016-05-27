@@ -3,7 +3,7 @@ var wallabyWebpack = require('wallaby-webpack');
 var wallabyPostprocessor = wallabyWebpack({
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel', exclude: /node_modules/, query: { presets: ['es2015-loose', 'stage-1'], plugins: ['transform-decorators-legacy'] } },
+      { test: /\.js$/, loader: 'babel', exclude: /node_modules/, query: { presets: ['es2015-loose', 'stage-1'], plugins: ['transform-decorators-legacy'] } }
     ]
   },
 });
@@ -16,7 +16,8 @@ module.exports = function(wallaby) {
     ],
 
     tests: [
-      { pattern: 'test/unit/**/*.spec.js', load: false }
+      { pattern: 'test/e2e/src/*.spec.js', load: false },
+      { pattern: 'test/e2e/src/*.*po.js', load: true }
     ],
 
     compilers: {
