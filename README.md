@@ -2,27 +2,26 @@
 
 ## Advancement
 
-DONE:
+### DONE
 
-Learn Aurelia
-Learn Materialize
-Cover all the functionality needed
-Make website responsive
-Externalize all the labels and icons
-Unit tests 29 Steps Covering most of the methods
+1. Learn Aurelia
+2. Learn Materialize
+3. Cover all the functionality needed
+4. Make website responsive
+5. Externalize all the labels and icons
+6. Unit tests 29 Steps Covering most of the methods
 
 
-TO DO :
+### TODO
 
-add test then correct bug that happens we have a zero item in our basket and we reload the page
-E2E for the books page need more to check data coherence
-E2E for the basket page needs to be done
-Make visual improvements for tablet device
-Add a search functionality for aurelia training
-Add a sort and filter functionality for aurelia training
-Add a homemade customizable infinity scroll for the website
-
-Add webpack plugin to process SASS then migrate to SASS
+1. add test then correct bug that happens we have a zero item in our basket and we reload the page
+2. E2E for the books page need more to check data coherence
+3. E2E for the basket page needs to be done
+4. Make visual improvements for tablet device
+5. Add a search functionality for aurelia training
+6. Add a sort and filter functionality for aurelia training
+7. Add a homemade customizable infinity scroll for the website
+8.Add webpack plugin to process SASS then migrate to SASS
 
 
 
