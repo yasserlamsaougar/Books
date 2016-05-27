@@ -18,8 +18,8 @@
     <a href="#" class="au-animate btn-floating btn waves-effect white icon-button price">
       <p class="price-text black-text">${totalPrice}&euro;</p>
     </a>
-    <a click.trigger="clearAllArticles()" class="clear-all" if.bind="boughtArticlesNumber > 0"
-       class="btn-floating btn waves-effect waves-orange white icon-button">
+    <a click.trigger="clearAllArticles()" if.bind="boughtArticlesNumber > 0"
+       class="clear-all btn-floating btn waves-effect waves-orange white icon-button">
       <i class="material-icons purple-text" t="books.icons.clear_all"></i>
     </a>
   </div>
