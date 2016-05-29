@@ -4,28 +4,27 @@ import {Basket} from '../../src/basket.js';
 import {BasketService} from '../../src/basket-service.js'
 import {OfferCalculator} from '../../src/offer-calculator.js'
 class OfferServiceStub {
-
+  offers =
+  {
+    offers: [
+      {
+        type: 'percentage', // 137.75
+        value: 5
+      },
+      {
+        type: 'minus', // 40
+        value: 15
+      },
+      {
+        type: 'slice',
+        sliceValue: 100, // 65
+        value: 12
+      }
+    ]
+  };
   getOffers(isbns) {
-    const offers =
-    {
-      offers: [
-        {
-          type: 'percentage', // 137.75
-          value: 5
-        },
-        {
-          type: 'minus', // 40
-          value: 15
-        },
-        {
-          type: 'slice',
-          sliceValue: 100, // 65
-          value: 12
-        }
-      ]
-    };
     return new Promise((resolve) => {
-      resolve(offers);
+      resolve(this.offers);
     });
   }
 
@@ -35,18 +34,33 @@ class OfferServiceStub {
 }
 
 describe('the Basket module setup', () => {
-  let booksCollection = [{
-    title: 'Test Book',
-    price: 30,
-    isbn: 'testisbn1'
-  }, {
-    title: 'Test Book 2',
-    price: 35,
-    isbn: 'testisbn2'
-  }];
+  let booksCollection = [];
   beforeEach(() => {
     spyOn(sessionStorage, 'setItem').and.returnValue(true);
     spyOn(sessionStorage, 'getItem').and.returnValue([]);
+    booksCollection = [{
+      title: 'Test Book',
+      price: 30,
+      isbn: 'testisbn1'
+    }, {
+      title: 'Test Book 2',
+      price: 35,
+      isbn: 'testisbn2'
+    }];
+  });
+
+  it('should do nothing if the basket is empty', (done) => {
+
+    const offerService = new OfferServiceStub([]);
+    spyOn(offerService, 'getOffers');
+    let basketService = new BasketService(new OfferCalculator());
+    const sut = new Basket(offerService, basketService);
+
+    const result = sut.activate();
+    expect(result).toBeUndefined();
+    expect(offerService.getOffers.calls.any()).toBeFalsy();
+    done();
+
   });
   it('sets fetch response to books', (done) => {
 
@@ -71,6 +85,8 @@ describe('the Basket module setup', () => {
         }
       ]
     };
+    basketService.addArticle(booksCollection[0]);
+
     const itemFake = [2];
     sut.activate().then((offers) => {
       expect(offers).toEqual(itemStubs);
@@ -83,6 +99,7 @@ describe('the Basket module setup', () => {
   it('should initialize the basket items and price based on the basket service', (done) => {
     const offerService = new OfferServiceStub();
     const basketService = new BasketService(new OfferCalculator());
+
     basketService.addArticle(booksCollection[0]);
     basketService.addArticle(booksCollection[1]);
     const sut = new Basket(offerService, basketService);
